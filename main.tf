@@ -52,12 +52,12 @@ resource "aws_route_table" "rl-public-rt" {
   }
 }
 resource "aws_route_table_association" "rl-public-subnet1-assoc" {
-  subnet_id      = aws_subnet.rl-public-subnet1.id
+  subnet_id      = aws_subnet.public-subnet-rl1.id
   route_table_id = aws_route_table.rl-public-rt.id
 }
 
 resource "aws_route_table_association" "rl-public-subnet2-assoc" {
-  subnet_id      = aws_subnet.rl-public-subnet2.id
+  subnet_id      = aws_subnet.public-subnet-rl2.id
   route_table_id = aws_route_table.rl-public-rt.id
 }
 resource "aws_security_group" "rl-EC2-SG" {
@@ -126,7 +126,7 @@ data "aws_ami" "amazon_linux" {
 resource "aws_instance" "rl-ec2" {
   ami                         = data.aws_ami.amazon_linux.id
   instance_type               = "t3.micro"
-  subnet_id                   = aws_subnet.rl-public-subnet1.id
+  subnet_id                   = aws_subnet.public-subnet-rl1.id
   vpc_security_group_ids      = [aws_security_group.rl-EC2-SG.id]
   associate_public_ip_address = true
 
