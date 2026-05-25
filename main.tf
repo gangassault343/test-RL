@@ -133,7 +133,7 @@ resource "aws_instance" "rl-ec2" {
 
   # Minimal root EBS (required by AWS)
   root_block_device {
-    volume_size = 8
+    volume_size = 9
     volume_type = "gp3"
   }
   user_data = <<-EOF
