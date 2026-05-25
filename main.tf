@@ -15,52 +15,52 @@ resource "aws_vpc" "rl-vpc" {
   enable_dns_hostnames = true   
   enable_dns_support = true
   tags = {
-    Name =  "MY-VPC"
+    Name =  "rl-VPC"
   }
 }
-resource "aws_subnet" "public-subnet-RL1" {
-  vpc_id            = aws_vpc.my-vpc.id
+resource "aws_subnet" "public-subnet-rl1" {
+  vpc_id            = aws_vpc.rl-vpc.id
   cidr_block        = "172.16.0.0/25"
   availability_zone = "ap-south-1a"
   map_public_ip_on_launch = true
 
-  tags = { Name = "public-subnet-RL1" }
+  tags = { Name = "public-subnet-rl1" }
 }
-resource "aws_subnet" "public-subnet-RL2" {
-  vpc_id            = aws_vpc.my-vpc.id
+resource "aws_subnet" "public-subnet-rl2" {
+  vpc_id            = aws_vpc.rl-vpc.id
   cidr_block        = "172.16.0.128/25"
   availability_zone = "ap-south-1b"
   map_public_ip_on_launch = true  
 
-  tags = { Name = "public-subnet-RL2" }
+  tags = { Name = "public-subnet-rl2" }
 }
-resource "aws_internet_gateway" "RL-igw" {
-  vpc_id = aws_vpc.my-vpc.id
+resource "aws_internet_gateway" "rl-igw" {
+  vpc_id = aws_vpc.rl-vpc.id
   tags = {
-    Name = "RL-igw"
+    Name = "rl-igw"
   }
 }
-resource "aws_route_table" "RL-public-rt" {
-  vpc_id = aws_vpc.my-vpc.id
+resource "aws_route_table" "rl-public-rt" {
+  vpc_id = aws_vpc.rl-vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.my-igw.id
+    gateway_id = aws_internet_gateway.rl-igw.id
   }
   tags = {
-    Name = "RL-public-route-table"
+    Name = "rl-public-route-table"
   }
 }
-resource "aws_route_table_association" "RL-public-subnet1-assoc" {
+resource "aws_route_table_association" "rl-public-subnet1-assoc" {
   subnet_id      = aws_subnet.public-subnet1.id
   route_table_id = aws_route_table.public-rt.id
 }
 
-resource "aws_route_table_association" "RL-public-subnet2-assoc" {
+resource "aws_route_table_association" "rl-public-subnet2-assoc" {
   subnet_id      = aws_subnet.public-subnet2.id
   route_table_id = aws_route_table.public-rt.id
 }
-resource "aws_security_group" "RL-EC2-SG" {
+resource "aws_security_group" "rl-EC2-SG" {
   name        = "allow-all"
   description = "Allow all inbound and outbound traffic"
   vpc_id      = aws_vpc.my-vpc.id
@@ -123,7 +123,7 @@ data "aws_ami" "amazon_linux" {
     values = ["amzn2-ami-hvm-*-x86_64-gp2"]
   }
 }
-resource "aws_instance" "RL-ec2" {
+resource "aws_instance" "rl-ec2" {
   ami                         = data.aws_ami.amazon_linux.id
   instance_type               = "t3.micro"
   subnet_id                   = aws_subnet.public-subnet1.id
@@ -146,7 +146,7 @@ resource "aws_instance" "RL-ec2" {
               EOF
  
   tags = {
-    Name = "RL-ec2-instance"
+    Name = "rl-ec2-instance"
   }
 
 }
