@@ -16,7 +16,7 @@ resource "aws_vpc" "rl-vpc" {
   enable_dns_hostnames = true   
   enable_dns_support = true
   tags = {
-    Name =  "rl-VPC"
+    Name =  "rl-VPC123"
   }
 }
 resource "aws_subnet" "public-subnet-rl1" {
