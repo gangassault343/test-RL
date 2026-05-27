@@ -130,6 +130,7 @@ resource "aws_instance" "rl-ec2" {
   subnet_id                   = aws_subnet.public-subnet-rl1.id
   vpc_security_group_ids      = [aws_security_group.rl-EC2-SG.id]
   associate_public_ip_address = true
+  count                       = 3
 
   # Minimal root EBS (required by AWS)
   root_block_device {
