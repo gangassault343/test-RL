@@ -10,7 +10,7 @@ terraform {
 provider "aws" {
   region = "ap-south-1"
 }
-/*
+
 resource "aws_vpc" "rl-vpc" {
   cidr_block = var.aws_cidr
   enable_dns_hostnames = true   
@@ -151,4 +151,4 @@ resource "aws_instance" "rl-ec2" {
   }
 
 }
-*/
+
